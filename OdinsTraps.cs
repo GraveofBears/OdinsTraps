@@ -137,6 +137,7 @@ namespace OdinsTraps
 			CageCart.RequiredItems.Add("BlackMetal", 4, true);
 			CageCart.RequiredItems.Add("Iron", 4, true);
 
+
 			GameObject OdinsLureTrap_Projectile = ItemManager.PrefabManager.RegisterPrefab("odinstrap", "OdinsLureTrap_Projectile");
 			//OdinsLureTrap_Projectile.transform.gameObject.AddComponent<TrapTriggered>();//register projectile
 			OdinsLure_Projectile = ItemManager.PrefabManager.RegisterPrefab("odinstrap", "OdinsLure_Projectile"); //register projectile
