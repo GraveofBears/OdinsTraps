@@ -143,10 +143,10 @@ namespace OdinsTraps
 			OdinsLure_Projectile = ItemManager.PrefabManager.RegisterPrefab("odinstrap", "OdinsLure_Projectile"); //register projectile
 		}
 
-		[HarmonyPatch(typeof(Player), nameof(Player.Awake))]
+		[HarmonyPatch(typeof(Character), nameof(Character.Awake))]
 		public class AddRPC
 		{
-			private static void Postfix(Player __instance)
+			private static void Postfix(Character __instance)
 			{
 				__instance.m_nview.Register("OdinsTrap ProjectileHit", _ => __instance.GetSEMan().AddStatusEffect("Trap projectile hit"));
 			}
@@ -155,8 +155,8 @@ namespace OdinsTraps
 		[HarmonyPatch(typeof(ObjectDB), nameof(ObjectDB.Awake))]
 		public class AddStatusEffect
 		{
-			private static StatusEffect? trapped;
-			private static StatusEffect? hit;
+			private static DecreaseMovementSpeed? trapped;
+			private static DecreaseMovementSpeed? hit;
 
 			private static void Postfix(ObjectDB __instance)
 			{
@@ -168,6 +168,7 @@ namespace OdinsTraps
 				__instance.m_StatusEffects.Add(trapped);
 
 				hit = ScriptableObject.CreateInstance<DecreaseMovementSpeed>();
+				hit.isProjectile = true;
 				hit.name = "Trap projectile hit";
 				hit.m_name = "Trap projectile hit";
 				hit.m_icon = UnplacedMetalTrap.Prefab.GetComponent<ItemDrop>().m_itemData.m_shared.m_icons.First();
@@ -196,9 +197,10 @@ namespace OdinsTraps
 
 		public class DecreaseMovementSpeed : StatusEffect
 		{
+			public bool isProjectile = false;
 			public override void ModifySpeed(float baseSpeed, ref float speed)
 			{
-				speed *= 1 - trappedEffectStrength.Value / 100f;
+				speed *= 1 - (isProjectile ? trapProjectileEffectStrength.Value : trappedEffectStrength.Value) / 100f;
 			}
 		}
 
@@ -207,9 +209,9 @@ namespace OdinsTraps
 		{
 			private static void Postfix(Projectile __instance, IDestructible destr)
 			{
-				if (__instance.name.StartsWith(OdinsLure_Projectile.gameObject.name, StringComparison.Ordinal) && ((MonoBehaviour)destr).GetComponent<Player>() is { } player && player != __instance.m_owner)
+				if (__instance.name.StartsWith(OdinsLure_Projectile.gameObject.name, StringComparison.Ordinal) && ((MonoBehaviour)destr).GetComponent<Character>() is { } character && character != __instance.m_owner)
 				{
-					player.m_nview.InvokeRPC("OdinsTrap ProjectileHit");
+					character.m_nview.InvokeRPC("OdinsTrap ProjectileHit");
 				}
 			}
 		}
@@ -219,12 +221,7 @@ namespace OdinsTraps
 		{
 			private static bool Prefix(Character __instance)
 			{
-				if (__instance is Player player && (player.GetSEMan().HaveStatusEffect("Trapped") || player.GetSEMan().HaveStatusEffect("Trap projectile hit")))
-				{
-					return false;
-				}
-
-				return true;
+				return __instance is not Player player || (!player.GetSEMan().HaveStatusEffect("Trapped") && !player.GetSEMan().HaveStatusEffect("Trap projectile hit"));
 			}
 		}
 	}
