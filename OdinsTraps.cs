@@ -139,8 +139,8 @@ namespace OdinsTraps
 
 
 			GameObject OdinsLureTrap_Projectile = ItemManager.PrefabManager.RegisterPrefab("odinstrap", "OdinsLureTrap_Projectile");
-			//OdinsLureTrap_Projectile.transform.gameObject.AddComponent<TrapTriggered>();//register projectile
-			OdinsLure_Projectile = ItemManager.PrefabManager.RegisterPrefab("odinstrap", "OdinsLure_Projectile"); //register projectile
+
+			GameObject OdinsLure_Projectile = ItemManager.PrefabManager.RegisterPrefab("odinstrap", "OdinsLure_Projectile"); //register projectile
 		}
 
 		[HarmonyPatch(typeof(Player), nameof(Player.Awake))]
