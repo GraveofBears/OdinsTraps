@@ -116,14 +116,21 @@ namespace OdinsTraps
 			MetalCage.Description.English("Dispite all my rage.");
 			MetalCage.RequiredItems.Add("BlackMetal", 4, true);
 			MetalCage.RequiredItems.Add("Iron", 4, true);
-			
+
+			BuildPiece Nest_Trap = new("odinstrap", "Odins_Nest_Trap");
+			Nest_Trap.Name.English("Odins_Nest_Trap");
+			Nest_Trap.Description.English("A cage for your ChickenBoo");
+			Nest_Trap.RequiredItems.Add("BlackMetal", 4, true);
+			Nest_Trap.RequiredItems.Add("Iron", 4, true);
+
 			BuildPiece CageCart = new("odinstrap", "OdinsCageCart");
 			CageCart.Name.English("OdinsCageCart");
 			CageCart.Description.English("Dispite all my rage.");
 			CageCart.RequiredItems.Add("BlackMetal", 4, true);
 			CageCart.RequiredItems.Add("Iron", 4, true);
 			
-			GameObject OdinsLureTrap_Projectile = ItemManager.PrefabManager.RegisterPrefab("odinstrap", "OdinsLureTrap_Projectile"); //register projectile
+			GameObject OdinsLureTrap_Projectile = ItemManager.PrefabManager.RegisterPrefab("odinstrap", "OdinsLureTrap_Projectile");
+			//OdinsLureTrap_Projectile.transform.gameObject.AddComponent<TrapTriggered>();//register projectile
 			GameObject OdinsLure_Projectile = ItemManager.PrefabManager.RegisterPrefab("odinstrap", "OdinsLure_Projectile"); //register projectile
 		}
 		
