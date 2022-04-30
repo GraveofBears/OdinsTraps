@@ -9,14 +9,13 @@ using ServerSync;
 using PieceManager;
 using UnityEngine;
 
-
 namespace OdinsTraps
 {
 	[BepInPlugin(ModGUID, ModName, ModVersion)]
 	public class OdinsTraps : BaseUnityPlugin
 	{
 		private const string ModName = "OdinsTraps";
-		private const string ModVersion = "1.0.5";
+		private const string ModVersion = "1.0.6";
 		private const string ModGUID = "com.odinplus.odinstraps";
 		private static Harmony harmony = null!;
 
@@ -24,7 +23,7 @@ namespace OdinsTraps
 		private static GameObject OdinsLure_Projectile = null!;
 
 		ConfigSync configSync = new(ModGUID)
-			{ DisplayName = ModName, CurrentVersion = ModVersion, MinimumRequiredVersion = ModVersion };
+		{ DisplayName = ModName, CurrentVersion = ModVersion, MinimumRequiredVersion = ModVersion };
 		internal static ConfigEntry<bool> ServerConfigLocked = null!;
 		internal static ConfigEntry<int> trappedDuration = null!;
 		internal static ConfigEntry<int> trappedEffectStrength = null!;
@@ -60,7 +59,7 @@ namespace OdinsTraps
 			trapProjectileEffectStrength = config("1 - General", "Trap projectile effect strength", 100, new ConfigDescription("Sets the strength for the trap projectile effect.", new AcceptableValueRange<int>(1, 100)));
 			trapProjectileEffectStrength.SettingChanged += (_, _) => AddStatusEffect.SetHitValues();
 
-			UnplacedMetalTrap = new Item("odinstrap", "Unplaced_Metal_Trap");
+			UnplacedMetalTrap = new Item("odinstrap", "Unplaced_Metal_Trap"); //assetbundle name, Asset Name
 			UnplacedMetalTrap.Crafting.Add(CraftingTable.Forge, 2);
 			UnplacedMetalTrap.RequiredItems.Add("Iron", 6);
 			UnplacedMetalTrap.RequiredItems.Add("BlackMetal", 1);
@@ -120,6 +119,12 @@ namespace OdinsTraps
 			Blade_Trap.RequiredItems.Add("BlackMetal", 2, true);
 			Blade_Trap.RequiredItems.Add("Wood", 6, true);
 
+			BuildPiece Flame_Trap = new("odinstrap", "Odins_Flame_Trap");
+			Flame_Trap.Name.English("Odins Flame Trap");
+			Flame_Trap.Description.English("The floor is fire.");
+			Flame_Trap.RequiredItems.Add("BlackMetal", 4, true);
+			Flame_Trap.RequiredItems.Add("Wood", 6, true);
+
 			BuildPiece MetalCage = new("odinstrap", "OdinsMetalCage");
 			MetalCage.Name.English("OdinsMetalCage");
 			MetalCage.Description.English("Dispite all my rage.");
@@ -129,8 +134,8 @@ namespace OdinsTraps
 			BuildPiece Nest_Trap = new("odinstrap", "Odins_Nest_Trap");
 			Nest_Trap.Name.English("Odins_Nest_Trap");
 			Nest_Trap.Description.English("A cage for your ChickenBoo");
+			Nest_Trap.RequiredItems.Add("DeerHide", 4, true);
 			Nest_Trap.RequiredItems.Add("Wood", 4, true);
-			Nest_Trap.RequiredItems.Add("DeerHide", 1, true);
 
 			BuildPiece CageCart = new("odinstrap", "OdinsCageCart");
 			CageCart.Name.English("OdinsCageCart");
@@ -138,28 +143,13 @@ namespace OdinsTraps
 			CageCart.RequiredItems.Add("BlackMetal", 4, true);
 			CageCart.RequiredItems.Add("Iron", 4, true);
 
+
 			GameObject OdinsLureTrap_Projectile = ItemManager.PrefabManager.RegisterPrefab("odinstrap", "OdinsLureTrap_Projectile");
-
-
-			GameObject ObjectEnabled = ItemManager.PrefabManager.RegisterPrefab("odinstrap", "ObjectEnabled");
 
 			OdinsLure_Projectile = ItemManager.PrefabManager.RegisterPrefab("odinstrap", "OdinsLure_Projectile"); //register projectile
 		}
 
 		[HarmonyPatch(typeof(Character), nameof(Character.Awake))]
-
-		public static void setSwitcher(GameObject prefab, ZNetScene zNetScene)
-		{
-			GameObject originalGuard = zNetScene.m_prefabs.Find((x) => x.name == "guard_stone");
-			PrivateArea privArea = originalGuard.GetComponent<PrivateArea>();
-
-			ObjectEnabled objectEnabled = prefab.AddComponent<ObjectEnabled>();
-			objectEnabled.m_name = "My super Switch";
-			objectEnabled.m_enabledObject = prefab.transform.Find("_enabled").gameObject;
-			objectEnabled.m_activateEffect = privArea.m_activateEffect;
-			objectEnabled.m_deactivateEffect = privArea.m_deactivateEffect;
-		}
-
 		public class AddRPC
 		{
 			private static void Postfix(Character __instance)
