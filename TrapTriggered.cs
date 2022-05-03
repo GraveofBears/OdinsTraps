@@ -18,6 +18,9 @@ namespace OdinsTraps
 			{
 				Player.m_localPlayer.GetSEMan().AddStatusEffect("Trapped");
 			}
-		}
-	}
+
+        }
+    }
 }
+	
+
