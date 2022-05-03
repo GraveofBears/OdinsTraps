@@ -15,7 +15,7 @@ namespace OdinsTraps
 	public class OdinsTraps : BaseUnityPlugin
 	{
 		private const string ModName = "OdinsTraps";
-		private const string ModVersion = "1.0.6";
+		private const string ModVersion = "1.0.8";
 		private const string ModGUID = "com.odinplus.odinstraps";
 		private static Harmony harmony = null!;
 
@@ -125,6 +125,18 @@ namespace OdinsTraps
 			Flame_Trap.RequiredItems.Add("BlackMetal", 4, true);
 			Flame_Trap.RequiredItems.Add("Wood", 6, true);
 
+			BuildPiece Saw_Wall = new("odinstrap", "Odins_Saw_Wall");
+			Saw_Wall.Name.English("Odins Saw Wall");
+			Saw_Wall.Description.English("Deck the walls with rusty Saws.");
+			Saw_Wall.RequiredItems.Add("BlackMetal", 4, true);
+			Saw_Wall.RequiredItems.Add("Wood", 6, true);
+
+			BuildPiece Trap_Controller = new("odinstrap", "Odins_Trap_Controller");
+			Trap_Controller.Name.English("Odins Saw Wall");
+			Trap_Controller.Description.English("Controls Odins Traps within area");
+			Trap_Controller.RequiredItems.Add("Stone", 4, true);
+			Trap_Controller.RequiredItems.Add("Wood", 6, true);
+
 			BuildPiece MetalCage = new("odinstrap", "OdinsMetalCage");
 			MetalCage.Name.English("OdinsMetalCage");
 			MetalCage.Description.English("Dispite all my rage.");
@@ -229,6 +241,81 @@ namespace OdinsTraps
 			{
 				return __instance is not Player player || (!player.GetSEMan().HaveStatusEffect("Trapped") && !player.GetSEMan().HaveStatusEffect("Trap projectile hit"));
 			}
+		}
+		[HarmonyPatch(typeof(ZNetScene), "Awake")]
+		public static class ZNetScene_Awake_Path
+		{
+			public static void Prefix(ZNetScene __instance)
+			{
+				if (__instance == null)
+				{
+					return;
+				}
+				GameObject trapController = __instance.m_prefabs.Find((x) => x.name == "Odins_Trap_Controller");
+				setTrapControler(trapController, __instance);
+				string[] Pnames = new string[]{
+					"Odins_Blade_Trap",
+					"Odins_Spike_Trap",
+					"Odins_Flame_Trap",
+					"Odins_Saw_Wall"					
+				};
+				foreach (string name in Pnames)
+				{
+					addEnabler(__instance, name);
+				}
+			}
+
+			public static void addEnabler(ZNetScene zNetScene, string name)
+			{
+				GameObject originalGuard = zNetScene.m_prefabs.Find((x) => x.name == "piece_workbench");
+				if (originalGuard == null)
+				{
+
+					return;
+				}
+				Piece piece = originalGuard.GetComponent<Piece>();
+
+				GameObject prefab = zNetScene.m_prefabs.Find((x) => x.name == name);
+				if (prefab == null)
+				{
+
+					return;
+				}
+
+
+				TrapEnabler objectEnabled = prefab.AddComponent<TrapEnabler>();
+
+				objectEnabled.m_name = prefab.GetComponent<Piece>().name;
+
+
+				objectEnabled.m_enabledObject = prefab.transform.Find("_enabled").gameObject;
+
+
+				objectEnabled.m_activateEffect = piece.m_placeEffect;
+				objectEnabled.m_deactivateEffect = piece.m_placeEffect;
+
+
+			}
+		}
+		public static void setTrapControler(GameObject prefab, ZNetScene zNetScene)
+		{
+			if (!prefab.GetComponent<TrapController>())
+			{
+				GameObject originalGuard = zNetScene.m_prefabs.Find((x) => x.name == "guard_stone");
+				PrivateArea privArea = originalGuard.GetComponent<PrivateArea>();
+				TrapController objectEnabled = prefab.AddComponent<TrapController>();
+				objectEnabled.m_name = "Odins_Trap_Controller";
+				objectEnabled.m_switchOn = prefab.transform.Find("_enabled").gameObject;
+				objectEnabled.m_switchOff = prefab.transform.Find("_disabled").gameObject;
+				objectEnabled.m_radius = 30f;
+				objectEnabled.m_updateConnectionsInterval = 5f;
+				objectEnabled.m_areaMarker = prefab.transform.Find("AreaMarker").GetComponent<CircleProjector>();
+				objectEnabled.m_connectEffect = privArea.m_connectEffect;
+				objectEnabled.m_inRangeEffect = privArea.m_inRangeEffect;
+				objectEnabled.m_activateEffect = privArea.m_activateEffect;
+				objectEnabled.m_deactivateEffect = privArea.m_deactivateEffect;
+			}
+
 		}
 	}
 }
