@@ -15,7 +15,7 @@ namespace OdinsTraps
 	public class OdinsTraps : BaseUnityPlugin
 	{
 		private const string ModName = "OdinsTraps";
-		private const string ModVersion = "1.0.8";
+		private const string ModVersion = "1.0.9";
 		private const string ModGUID = "com.odinplus.odinstraps";
 		private static Harmony harmony = null!;
 
