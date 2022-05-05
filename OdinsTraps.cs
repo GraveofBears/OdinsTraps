@@ -257,7 +257,7 @@ namespace OdinsTraps
 					"Odins_Blade_Trap",
 					"Odins_Spike_Trap",
 					"Odins_Flame_Trap",
-					"Odins_Saw_Wall"					
+					"Odins_Saw_Wall"
 				};
 				foreach (string name in Pnames)
 				{
@@ -315,7 +315,6 @@ namespace OdinsTraps
 				objectEnabled.m_activateEffect = privArea.m_activateEffect;
 				objectEnabled.m_deactivateEffect = privArea.m_deactivateEffect;
 			}
-
 		}
 	}
 }
