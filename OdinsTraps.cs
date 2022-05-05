@@ -149,6 +149,12 @@ namespace OdinsTraps
 			Nest_Trap.RequiredItems.Add("DeerHide", 4, true);
 			Nest_Trap.RequiredItems.Add("Wood", 4, true);
 
+			BuildPiece Pen_Trap = new("odinstrap", "Odins_Pen_Trap");
+			Pen_Trap.Name.English("Odins_Pen_Trap");
+			Pen_Trap.Description.English("A pen for your OdinHorse");
+			Pen_Trap.RequiredItems.Add("BronzeNails", 4, true);
+			Pen_Trap.RequiredItems.Add("Wood", 4, true);
+
 			BuildPiece CageCart = new("odinstrap", "OdinsCageCart");
 			CageCart.Name.English("OdinsCageCart");
 			CageCart.Description.English("Dispite all my rage.");
