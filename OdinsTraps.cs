@@ -5,8 +5,8 @@ using BepInEx;
 using BepInEx.Configuration;
 using HarmonyLib;
 using ItemManager;
-using ServerSync;
 using PieceManager;
+using ServerSync;
 using UnityEngine;
 
 namespace OdinsTraps
@@ -162,9 +162,9 @@ namespace OdinsTraps
 			CageCart.RequiredItems.Add("Iron", 4, true);
 
 
-			GameObject OdinsLureTrap_Projectile = ItemManager.PrefabManager.RegisterPrefab("odinstrap", "OdinsLureTrap_Projectile");
+			GameObject OdinsLureTrap_Projectile = PrefabManager.RegisterPrefab("odinstrap", "OdinsLureTrap_Projectile");
 
-			OdinsLure_Projectile = ItemManager.PrefabManager.RegisterPrefab("odinstrap", "OdinsLure_Projectile"); //register projectile
+			OdinsLure_Projectile = PrefabManager.RegisterPrefab("odinstrap", "OdinsLure_Projectile"); //register projectile
 		}
 
 		[HarmonyPatch(typeof(Character), nameof(Character.Awake))]
@@ -257,9 +257,9 @@ namespace OdinsTraps
 				{
 					return;
 				}
-				GameObject trapController = __instance.m_prefabs.Find((x) => x.name == "Odins_Trap_Controller");
+				GameObject trapController = __instance.m_prefabs.Find(x => x.name == "Odins_Trap_Controller");
 				setTrapControler(trapController, __instance);
-				string[] Pnames = new string[]{
+				string[] Pnames = {
 					"Odins_Blade_Trap",
 					"Odins_Spike_Trap",
 					"Odins_Flame_Trap",
@@ -273,7 +273,7 @@ namespace OdinsTraps
 
 			public static void addEnabler(ZNetScene zNetScene, string name)
 			{
-				GameObject originalGuard = zNetScene.m_prefabs.Find((x) => x.name == "piece_workbench");
+				GameObject originalGuard = zNetScene.m_prefabs.Find(x => x.name == "piece_workbench");
 				if (originalGuard == null)
 				{
 
@@ -281,7 +281,7 @@ namespace OdinsTraps
 				}
 				Piece piece = originalGuard.GetComponent<Piece>();
 
-				GameObject prefab = zNetScene.m_prefabs.Find((x) => x.name == name);
+				GameObject prefab = zNetScene.m_prefabs.Find(x => x.name == name);
 				if (prefab == null)
 				{
 
@@ -307,14 +307,13 @@ namespace OdinsTraps
 		{
 			if (!prefab.GetComponent<TrapController>())
 			{
-				GameObject originalGuard = zNetScene.m_prefabs.Find((x) => x.name == "guard_stone");
+				GameObject originalGuard = zNetScene.m_prefabs.Find(x => x.name == "guard_stone");
 				PrivateArea privArea = originalGuard.GetComponent<PrivateArea>();
 				TrapController objectEnabled = prefab.AddComponent<TrapController>();
 				objectEnabled.m_name = "Odins_Trap_Controller";
 				objectEnabled.m_switchOn = prefab.transform.Find("_enabled").gameObject;
 				objectEnabled.m_switchOff = prefab.transform.Find("_disabled").gameObject;
 				objectEnabled.m_radius = 30f;
-				objectEnabled.m_updateConnectionsInterval = 5f;
 				objectEnabled.m_areaMarker = prefab.transform.Find("AreaMarker").GetComponent<CircleProjector>();
 				objectEnabled.m_connectEffect = privArea.m_connectEffect;
 				objectEnabled.m_inRangeEffect = privArea.m_inRangeEffect;
