@@ -132,7 +132,7 @@ namespace OdinsTraps
 			Saw_Wall.RequiredItems.Add("Wood", 6, true);
 
 			BuildPiece Trap_Controller = new("odinstrap", "Odins_Trap_Controller");
-			Trap_Controller.Name.English("Odins Saw Wall");
+			Trap_Controller.Name.English("Odins Trap Controller");
 			Trap_Controller.Description.English("Controls Odins Traps within area");
 			Trap_Controller.RequiredItems.Add("Stone", 4, true);
 			Trap_Controller.RequiredItems.Add("Wood", 6, true);
