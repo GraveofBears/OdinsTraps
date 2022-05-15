@@ -15,7 +15,7 @@ namespace OdinsTraps
 	public class OdinsTraps : BaseUnityPlugin
 	{
 		private const string ModName = "OdinsTraps";
-		private const string ModVersion = "1.0.9";
+		private const string ModVersion = "1.1.2";
 		private const string ModGUID = "com.odinplus.odinstraps";
 		private static Harmony harmony = null!;
 
@@ -130,6 +130,24 @@ namespace OdinsTraps
 			Saw_Wall.Description.English("Deck the walls with rusty Saws.");
 			Saw_Wall.RequiredItems.Add("BlackMetal", 4, true);
 			Saw_Wall.RequiredItems.Add("Wood", 6, true);
+
+			BuildPiece Spear_Wall = new("odinstrap", "Odins_Spear_Wall");
+			Spear_Wall.Name.English("Odins Spear Wall");
+			Spear_Wall.Description.English("The walls have spears.");
+			Spear_Wall.RequiredItems.Add("BlackMetal", 4, true);
+			Spear_Wall.RequiredItems.Add("Wood", 6, true);
+
+			BuildPiece Odins_Great_Axe = new("odinstrap", "Odins_Great_Axe");
+			Odins_Great_Axe.Name.English("Odins Great Axe");
+			Odins_Great_Axe.Description.English("Ceiling Trap Axe.");
+			Odins_Great_Axe.RequiredItems.Add("BlackMetal", 4, true);
+			Odins_Great_Axe.RequiredItems.Add("Wood", 6, true);
+
+			BuildPiece Odins_Great_Hammer = new("odinstrap", "Odins_Great_Hammer");
+			Odins_Great_Hammer.Name.English("Odins Great Hammer");
+			Odins_Great_Hammer.Description.English("Ceiling Trap Hammer.");
+			Odins_Great_Hammer.RequiredItems.Add("BlackMetal", 4, true);
+			Odins_Great_Hammer.RequiredItems.Add("Stone", 6, true);
 
 			BuildPiece Trap_Controller = new("odinstrap", "Odins_Trap_Controller");
 			Trap_Controller.Name.English("Odins Trap Controller");
@@ -263,7 +281,10 @@ namespace OdinsTraps
 					"Odins_Blade_Trap",
 					"Odins_Spike_Trap",
 					"Odins_Flame_Trap",
-					"Odins_Saw_Wall"
+					"Odins_Saw_Wall",
+					"Odins_Great_Axe",
+					"Odins_Spear_Wall",
+					"Odins_Great_Hammer"
 				};
 				foreach (string name in Pnames)
 				{
@@ -313,7 +334,7 @@ namespace OdinsTraps
 				objectEnabled.m_name = "Odins_Trap_Controller";
 				objectEnabled.m_switchOn = prefab.transform.Find("_enabled").gameObject;
 				objectEnabled.m_switchOff = prefab.transform.Find("_disabled").gameObject;
-				objectEnabled.m_radius = 30f;
+				objectEnabled.m_radius = 15f;
 				objectEnabled.m_areaMarker = prefab.transform.Find("AreaMarker").GetComponent<CircleProjector>();
 				objectEnabled.m_connectEffect = privArea.m_connectEffect;
 				objectEnabled.m_inRangeEffect = privArea.m_inRangeEffect;
