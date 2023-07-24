@@ -16,7 +16,7 @@ namespace OdinsTraps
 		{
 			if (other.GetComponent<Player>() == Player.m_localPlayer)
 			{
-				Player.m_localPlayer.GetSEMan().AddStatusEffect("Trapped");
+				Player.m_localPlayer.GetSEMan().AddStatusEffect("Trapped".GetStableHashCode());
 			}
 
         }

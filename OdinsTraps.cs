@@ -15,7 +15,7 @@ namespace OdinsTraps
 	public class OdinsTraps : BaseUnityPlugin
 	{
 		private const string ModName = "OdinsTraps";
-		private const string ModVersion = "1.1.2";
+		private const string ModVersion = "1.1.9";
 		private const string ModGUID = "com.odinplus.odinstraps";
 		private static Harmony harmony = null!;
 
@@ -60,19 +60,19 @@ namespace OdinsTraps
 			trapProjectileEffectStrength.SettingChanged += (_, _) => AddStatusEffect.SetHitValues();
 
 			UnplacedMetalTrap = new Item("odinstrap", "Unplaced_Metal_Trap"); //assetbundle name, Asset Name
-			UnplacedMetalTrap.Crafting.Add(CraftingTable.Forge, 2);
+			UnplacedMetalTrap.Crafting.Add(ItemManager.CraftingTable.Forge, 2);
 			UnplacedMetalTrap.RequiredItems.Add("Iron", 6);
 			UnplacedMetalTrap.RequiredItems.Add("BlackMetal", 1);
 			UnplacedMetalTrap.CraftAmount = 3;
 
 			Item LureBlade = new("odinstrap", "OdinsLureBlade"); //assetbundle name, Asset Name
-			LureBlade.Crafting.Add(CraftingTable.Forge, 2);
+			LureBlade.Crafting.Add(ItemManager.CraftingTable.Forge, 2);
 			LureBlade.RequiredItems.Add("Wood", 6);
 			LureBlade.RequiredItems.Add("Iron", 2);
 			LureBlade.CraftAmount = 1;
 
 			Item LureCannon = new("odinstrap", "OdinsLureCannon"); //assetbundle name, Asset Name
-			LureCannon.Crafting.Add(CraftingTable.Forge, 2);
+			LureCannon.Crafting.Add(ItemManager.CraftingTable.Forge, 2);
 			LureCannon.RequiredItems.Add("Wood", 6);
 			LureCannon.RequiredItems.Add("Iron", 2);
 			LureCannon.CraftAmount = 1;
@@ -81,106 +81,123 @@ namespace OdinsTraps
 			Metal_Trap.Name.English("Odins Metal Trap");
 			Metal_Trap.Description.English("It's a trap!");
 			Metal_Trap.RequiredItems.Add("Unplaced_Metal_Trap", 1, true);
-			Metal_Trap.Prefab.transform.Find("HatchProxy/Traps/HIT AREA").gameObject.AddComponent<TrapTriggered>();
+            Metal_Trap.Category.Add(BuildPieceCategory.Misc);
+            Metal_Trap.Prefab.transform.Find("HatchProxy/Traps/HIT AREA").gameObject.AddComponent<TrapTriggered>();
 
 			BuildPiece Fire_Trap = new("odinstrap", "Odins_Fire_Trap");
 			Fire_Trap.Name.English("Odins Fire Trap");
 			Fire_Trap.Description.English("It's a fire trap!");
 			Fire_Trap.RequiredItems.Add("Unplaced_Metal_Trap", 1, true);
 			Fire_Trap.RequiredItems.Add("SurtlingCore", 1, true);
+            Fire_Trap.Category.Add(BuildPieceCategory.Misc);
 
-			BuildPiece Frost_Trap = new("odinstrap", "Odins_Frost_Trap");
+            BuildPiece Frost_Trap = new("odinstrap", "Odins_Frost_Trap");
 			Frost_Trap.Name.English("Odins Frost Trap");
 			Frost_Trap.Description.English("It's a frost trap!");
 			Frost_Trap.RequiredItems.Add("Unplaced_Metal_Trap", 1, true);
 			Frost_Trap.RequiredItems.Add("FreezeGland", 1, true);
+            Frost_Trap.Category.Add(BuildPieceCategory.Misc);
 
-			BuildPiece Lightning_Trap = new("odinstrap", "Odins_Lightning_Trap");
+            BuildPiece Lightning_Trap = new("odinstrap", "Odins_Lightning_Trap");
 			Lightning_Trap.Name.English("Odins Lightning Trap");
 			Lightning_Trap.Description.English("It's a lightning trap!");
 			Lightning_Trap.RequiredItems.Add("Unplaced_Metal_Trap", 1, true);
 			Lightning_Trap.RequiredItems.Add("Needle", 1, true);
+            Lightning_Trap.Category.Add(BuildPieceCategory.Misc);
 
-			BuildPiece Poison_Trap = new("odinstrap", "Odins_Poison_Trap");
+            BuildPiece Poison_Trap = new("odinstrap", "Odins_Poison_Trap");
 			Poison_Trap.Name.English("Odins Poison Trap");
 			Poison_Trap.Description.English("It's a poison trap!");
 			Poison_Trap.RequiredItems.Add("Unplaced_Metal_Trap", 1, true);
 			Poison_Trap.RequiredItems.Add("Ooze", 1, true);
+            Poison_Trap.Category.Add(BuildPieceCategory.Misc);
 
-			BuildPiece Spike_Trap = new("odinstrap", "Odins_Spike_Trap");
+            BuildPiece Spike_Trap = new("odinstrap", "Odins_Spike_Trap");
 			Spike_Trap.Name.English("Odins Spike Trap");
 			Spike_Trap.Description.English("The floor is spikes.");
 			Spike_Trap.RequiredItems.Add("BlackMetal", 4, true);
 			Spike_Trap.RequiredItems.Add("Stone", 8, true);
+            Spike_Trap.Category.Add(BuildPieceCategory.Misc);
 
-			BuildPiece Blade_Trap = new("odinstrap", "Odins_Blade_Trap");
+            BuildPiece Blade_Trap = new("odinstrap", "Odins_Blade_Trap");
 			Blade_Trap.Name.English("Odins Blade Trap");
 			Blade_Trap.Description.English("My biggest fan.");
 			Blade_Trap.RequiredItems.Add("BlackMetal", 2, true);
 			Blade_Trap.RequiredItems.Add("Wood", 6, true);
+            Blade_Trap.Category.Add(BuildPieceCategory.Misc);
 
-			BuildPiece Flame_Trap = new("odinstrap", "Odins_Flame_Trap");
+            BuildPiece Flame_Trap = new("odinstrap", "Odins_Flame_Trap");
 			Flame_Trap.Name.English("Odins Flame Trap");
 			Flame_Trap.Description.English("The floor is fire.");
 			Flame_Trap.RequiredItems.Add("BlackMetal", 4, true);
 			Flame_Trap.RequiredItems.Add("Wood", 6, true);
+            Flame_Trap.Category.Add(BuildPieceCategory.Misc);
 
-			BuildPiece Saw_Wall = new("odinstrap", "Odins_Saw_Wall");
+            BuildPiece Saw_Wall = new("odinstrap", "Odins_Saw_Wall");
 			Saw_Wall.Name.English("Odins Saw Wall");
 			Saw_Wall.Description.English("Deck the walls with rusty Saws.");
 			Saw_Wall.RequiredItems.Add("BlackMetal", 4, true);
 			Saw_Wall.RequiredItems.Add("Wood", 6, true);
+            Saw_Wall.Category.Add(BuildPieceCategory.Misc);
 
-			BuildPiece Spear_Wall = new("odinstrap", "Odins_Spear_Wall");
+            BuildPiece Spear_Wall = new("odinstrap", "Odins_Spear_Wall");
 			Spear_Wall.Name.English("Odins Spear Wall");
 			Spear_Wall.Description.English("The walls have spears.");
 			Spear_Wall.RequiredItems.Add("BlackMetal", 4, true);
 			Spear_Wall.RequiredItems.Add("Wood", 6, true);
+            Spear_Wall.Category.Add(BuildPieceCategory.Misc);
 
-			BuildPiece Odins_Great_Axe = new("odinstrap", "Odins_Great_Axe");
+            BuildPiece Odins_Great_Axe = new("odinstrap", "Odins_Great_Axe");
 			Odins_Great_Axe.Name.English("Odins Great Axe");
 			Odins_Great_Axe.Description.English("Ceiling Trap Axe.");
 			Odins_Great_Axe.RequiredItems.Add("BlackMetal", 4, true);
 			Odins_Great_Axe.RequiredItems.Add("Wood", 6, true);
+            Odins_Great_Axe.Category.Add(BuildPieceCategory.Misc);
 
-			BuildPiece Odins_Great_Hammer = new("odinstrap", "Odins_Great_Hammer");
+            BuildPiece Odins_Great_Hammer = new("odinstrap", "Odins_Great_Hammer");
 			Odins_Great_Hammer.Name.English("Odins Great Hammer");
 			Odins_Great_Hammer.Description.English("Ceiling Trap Hammer.");
 			Odins_Great_Hammer.RequiredItems.Add("BlackMetal", 4, true);
 			Odins_Great_Hammer.RequiredItems.Add("Stone", 6, true);
+            Odins_Great_Hammer.Category.Add(BuildPieceCategory.Misc);
 
-			BuildPiece Trap_Controller = new("odinstrap", "Odins_Trap_Controller");
+            BuildPiece Trap_Controller = new("odinstrap", "Odins_Trap_Controller");
 			Trap_Controller.Name.English("Odins Trap Controller");
 			Trap_Controller.Description.English("Controls Odins Traps within area");
 			Trap_Controller.RequiredItems.Add("Stone", 4, true);
 			Trap_Controller.RequiredItems.Add("Wood", 6, true);
+            Trap_Controller.Category.Add(BuildPieceCategory.Misc);
 
-			BuildPiece MetalCage = new("odinstrap", "OdinsMetalCage");
+            BuildPiece MetalCage = new("odinstrap", "OdinsMetalCage");
 			MetalCage.Name.English("OdinsMetalCage");
 			MetalCage.Description.English("Dispite all my rage.");
 			MetalCage.RequiredItems.Add("BlackMetal", 4, true);
 			MetalCage.RequiredItems.Add("Iron", 4, true);
+            MetalCage.Category.Add(BuildPieceCategory.Misc);
 
-			BuildPiece Nest_Trap = new("odinstrap", "Odins_Nest_Trap");
+            BuildPiece Nest_Trap = new("odinstrap", "Odins_Nest_Trap");
 			Nest_Trap.Name.English("Odins_Nest_Trap");
 			Nest_Trap.Description.English("A cage for your ChickenBoo");
 			Nest_Trap.RequiredItems.Add("DeerHide", 4, true);
 			Nest_Trap.RequiredItems.Add("Wood", 4, true);
+            Nest_Trap.Category.Add(BuildPieceCategory.Misc);
 
-			BuildPiece Pen_Trap = new("odinstrap", "Odins_Pen_Trap");
+            BuildPiece Pen_Trap = new("odinstrap", "Odins_Pen_Trap");
 			Pen_Trap.Name.English("Odins_Pen_Trap");
 			Pen_Trap.Description.English("A pen for your OdinHorse");
 			Pen_Trap.RequiredItems.Add("BronzeNails", 4, true);
 			Pen_Trap.RequiredItems.Add("Wood", 4, true);
+            Pen_Trap.Category.Add(BuildPieceCategory.Misc);
 
-			BuildPiece CageCart = new("odinstrap", "OdinsCageCart");
+            BuildPiece CageCart = new("odinstrap", "OdinsCageCart");
 			CageCart.Name.English("OdinsCageCart");
 			CageCart.Description.English("Dispite all my rage.");
 			CageCart.RequiredItems.Add("BlackMetal", 4, true);
 			CageCart.RequiredItems.Add("Iron", 4, true);
+            CageCart.Category.Add(BuildPieceCategory.Misc);
 
 
-			GameObject OdinsLureTrap_Projectile = PrefabManager.RegisterPrefab("odinstrap", "OdinsLureTrap_Projectile");
+            GameObject OdinsLureTrap_Projectile = PrefabManager.RegisterPrefab("odinstrap", "OdinsLureTrap_Projectile");
 
 			OdinsLure_Projectile = PrefabManager.RegisterPrefab("odinstrap", "OdinsLure_Projectile"); //register projectile
 		}
@@ -190,9 +207,10 @@ namespace OdinsTraps
 		{
 			private static void Postfix(Character __instance)
 			{
-				__instance.m_nview.Register("OdinsTrap ProjectileHit", _ => __instance.GetSEMan().AddStatusEffect("Trap projectile hit"));
-			}
-		}
+                __instance.m_nview.Register("OdinsTrap ProjectileHit", _ => __instance.GetSEMan().AddStatusEffect("Trap projectile hit".GetStableHashCode()));
+
+            }
+        }
 
 		[HarmonyPatch(typeof(ObjectDB), nameof(ObjectDB.Awake))]
 		public class AddStatusEffect
