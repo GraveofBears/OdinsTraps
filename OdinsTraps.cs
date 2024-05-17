@@ -14,9 +14,8 @@ namespace OdinsTraps
 	[BepInPlugin(ModGUID, ModName, ModVersion)]
 	public class OdinsTraps : BaseUnityPlugin
 	{
-		internal const string ModName = "OdinsTraps";
-		internal const string ModVersion = "1.2.0";
-		internal const string Author = "GraveBear";
+		private const string ModName = "OdinsTraps";
+		private const string ModVersion = "1.1.13";
 		private const string ModGUID = "com.odinplus.odinstraps";
 		private static Harmony harmony = null!;
 
@@ -259,7 +258,7 @@ namespace OdinsTraps
 		public class DecreaseMovementSpeed : StatusEffect
 		{
 			public bool isProjectile = false;
-			public override void ModifySpeed(float baseSpeed, ref float speed, Character character, Vector3 dir)
+			public override void ModifySpeed(float baseSpeed, ref float speed)
 			{
 				speed *= 1 - (isProjectile ? trapProjectileEffectStrength.Value : trappedEffectStrength.Value) / 100f;
 			}
@@ -282,7 +281,7 @@ namespace OdinsTraps
 		{
 			private static bool Prefix(Character __instance)
 			{
-				return __instance is not Player player || (!player.GetSEMan().HaveStatusEffect("Trapped".GetStableHashCode()) && !player.GetSEMan().HaveStatusEffect("Trap projectile hit".GetStableHashCode()));
+				return __instance is not Player player || (!player.GetSEMan().HaveStatusEffect("Trapped") && !player.GetSEMan().HaveStatusEffect("Trap projectile hit"));
 			}
 		}
 		[HarmonyPatch(typeof(ZNetScene), "Awake")]
