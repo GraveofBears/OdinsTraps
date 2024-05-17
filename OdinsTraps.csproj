@@ -49,29 +49,30 @@
         <GamePath Condition="!Exists('$(GamePath)') AND '$(_SteamLibraryPath)' != ''">$(_SteamLibraryPath)\steamapps\common\Valheim</GamePath>
         <GamePath Condition="!Exists('$(GamePath)')">C:\Program Files\Steam\steamapps\common\Valheim</GamePath>
         <GamePath Condition="!Exists('$(GamePath)')">C:\Program Files (x86)\Steam\steamapps\common\Valheim</GamePath>
+        <GamePath Condition="!Exists('$(GamePath)')">..\..\..\Steam\steamapps\common\Valheim-ptr</GamePath>
       </PropertyGroup>
     </When>
   </Choose>
   <ItemGroup>
     <Reference Include="0Harmony, Version=2.9.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Steam\steamapps\common\Valheim-ptr\BepInEx\core\0Harmony.dll</HintPath>
+      <HintPath>$(GamePath)\BepInEx\core\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="assembly_guiutils_publicized, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Steam\steamapps\common\Valheim-ptr\valheim_Data\Managed\publicized_assemblies\assembly_guiutils_publicized.dll</HintPath>
+      <HintPath>$(GamePath)\valheim_Data\Managed\publicized_assemblies\assembly_guiutils_publicized.dll</HintPath>
     </Reference>
     <Reference Include="assembly_utils_publicized, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Steam\steamapps\common\Valheim-ptr\valheim_Data\Managed\publicized_assemblies\assembly_utils_publicized.dll</HintPath>
+      <HintPath>$(GamePath)\valheim_Data\Managed\publicized_assemblies\assembly_utils_publicized.dll</HintPath>
     </Reference>
     <Reference Include="assembly_valheim_publicized, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Steam\steamapps\common\Valheim-ptr\valheim_Data\Managed\publicized_assemblies\assembly_valheim_publicized.dll</HintPath>
+      <HintPath>$(GamePath)\valheim_Data\Managed\publicized_assemblies\assembly_valheim_publicized.dll</HintPath>
     </Reference>
     <Reference Include="BepInEx, Version=5.4.19.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Steam\steamapps\common\Valheim-ptr\BepInEx\core\BepInEx.dll</HintPath>
+      <HintPath>$(GamePath)\BepInEx\core\BepInEx.dll</HintPath>
     </Reference>
     <Reference Include="ItemManager">
       <HintPath>Libs\ItemManager.dll</HintPath>
@@ -88,30 +89,30 @@
     <Reference Include="System.Xml" />
     <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Steam\steamapps\common\Valheim-ptr\unstripped_corlib\UnityEngine.dll</HintPath>
+      <HintPath>$(GamePath)\valheim_Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AssetBundleModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Steam\steamapps\common\Valheim-ptr\unstripped_corlib\UnityEngine.AssetBundleModule.dll</HintPath>
+      <HintPath>$(GamePath)\valheim_Data\Managed\UnityEngine.AssetBundleModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Steam\steamapps\common\Valheim-ptr\unstripped_corlib\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>$(GamePath)\valheim_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.IMGUIModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Steam\steamapps\common\Valheim-ptr\unstripped_corlib\UnityEngine.IMGUIModule.dll</HintPath>
+      <HintPath>$(GamePath)\valheim_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ParticleSystemModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Steam\steamapps\common\Valheim-ptr\unstripped_corlib\UnityEngine.ParticleSystemModule.dll</HintPath>
+      <HintPath>$(GamePath)\valheim_Data\Managed\UnityEngine.ParticleSystemModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Steam\steamapps\common\Valheim-ptr\unstripped_corlib\UnityEngine.PhysicsModule.dll</HintPath>
+      <HintPath>$(GamePath)\valheim_Data\Managed\UnityEngine.PhysicsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>..\..\..\Steam\steamapps\common\Valheim-ptr\unstripped_corlib\UnityEngine.UI.dll</HintPath>
+      <HintPath>$(GamePath)\valheim_Data\Managed\UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -138,17 +139,17 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\..\..\Steam\steamapps\common\Valheim-ptr\BepInEx\core\0Harmony.dll" />
-    <Analyzer Include="..\..\..\Steam\steamapps\common\Valheim-ptr\BepInEx\core\BepInEx.dll" />
-    <Analyzer Include="..\..\..\Steam\steamapps\common\Valheim-ptr\unstripped_corlib\UnityEngine.AssetBundleModule.dll" />
-    <Analyzer Include="..\..\..\Steam\steamapps\common\Valheim-ptr\unstripped_corlib\UnityEngine.CoreModule.dll" />
-    <Analyzer Include="..\..\..\Steam\steamapps\common\Valheim-ptr\unstripped_corlib\UnityEngine.dll" />
-    <Analyzer Include="..\..\..\Steam\steamapps\common\Valheim-ptr\unstripped_corlib\UnityEngine.IMGUIModule.dll" />
-    <Analyzer Include="..\..\..\Steam\steamapps\common\Valheim-ptr\unstripped_corlib\UnityEngine.ParticleSystemModule.dll" />
-    <Analyzer Include="..\..\..\Steam\steamapps\common\Valheim-ptr\unstripped_corlib\UnityEngine.UI.dll" />
-    <Analyzer Include="..\..\..\Steam\steamapps\common\Valheim-ptr\valheim_Data\Managed\publicized_assemblies\assembly_guiutils_publicized.dll" />
-    <Analyzer Include="..\..\..\Steam\steamapps\common\Valheim-ptr\valheim_Data\Managed\publicized_assemblies\assembly_utils_publicized.dll" />
-    <Analyzer Include="..\..\..\Steam\steamapps\common\Valheim-ptr\valheim_Data\Managed\publicized_assemblies\assembly_valheim_publicized.dll" />
+    <Analyzer Include="$(GamePath)\BepInEx\core\0Harmony.dll" />
+    <Analyzer Include="$(GamePath)\BepInEx\core\BepInEx.dll" />
+    <Analyzer Include="$(GamePath)\valheim_Data\Managed\UnityEngine.AssetBundleModule.dll" />
+    <Analyzer Include="$(GamePath)\valheim_Data\Managed\UnityEngine.CoreModule.dll" />
+    <Analyzer Include="$(GamePath)\valheim_Data\Managed\UnityEngine.dll" />
+    <Analyzer Include="$(GamePath)\valheim_Data\Managed\UnityEngine.IMGUIModule.dll" />
+    <Analyzer Include="$(GamePath)\valheim_Data\Managed\UnityEngine.ParticleSystemModule.dll" />
+    <Analyzer Include="$(GamePath)\valheim_Data\Managed\UnityEngine.UI.dll" />
+    <Analyzer Include="$(GamePath)\valheim_Data\Managed\publicized_assemblies\assembly_guiutils_publicized.dll" />
+    <Analyzer Include="$(GamePath)\valheim_Data\Managed\publicized_assemblies\assembly_utils_publicized.dll" />
+    <Analyzer Include="$(GamePath)\valheim_Data\Managed\publicized_assemblies\assembly_valheim_publicized.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
